@@ -1,7 +1,7 @@
 
-const User = require("../models/User");
-const Role = require("../models/Role");
-const Permission = require("../models/Permission");
+const User = require("../models/user");
+const Role = require("../models/role");
+const Permission = require("../models/permission");
 const {
   generateAccessToken,
   generateRefreshToken,

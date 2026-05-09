@@ -1,8 +1,8 @@
 require("dotenv").config();
 const connectDB = require("../config/db");
-const Permission = require("../models/Permission");
-const Role = require("../models/Role");
-const User = require("../models/User");
+const Permission = require("../models/permission");
+const Role = require("../models/role");
+const User = require("../models/user");
 
 const seed = async () => {
   await connectDB();
