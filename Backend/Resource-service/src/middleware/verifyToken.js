@@ -16,10 +16,12 @@ const { sendError } = require("../utils/responseHandler");
  */
 
 // Load public key once at startup — never changes at runtime
-const publicKey = fs.readFileSync(
-  path.resolve(process.env.JWT_PUBLIC_KEY_PATH || "./src/keys/public.key"),
-  "utf8"
-);
+// const publicKey = fs.readFileSync(
+//   path.resolve(process.env.JWT_PUBLIC_KEY_PATH || "./src/keys/public.key"),
+//   "utf8"
+// );
+
+const publicKey = process.env.JWT_PUBLIC_KEY_PATH.replace(/\\n/g, "\n");
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
