@@ -9,15 +9,19 @@ const path = require("path");
  * → Resource Service NEVER needs to call Auth DB
  */
 
-const MyprivateKey = fs.readFileSync(
-  path.resolve(process.env.JWT_PRIVATE_KEY_PATH || "./src/keys/private.key"),
-  "utf8"
-);
+// const MyprivateKey = fs.readFileSync(
+//   path.resolve(process.env.JWT_PRIVATE_KEY_PATH || "./src/keys/private.key"),
+//   "utf8"
+// );
 
-const MypublicKey = fs.readFileSync(
-  path.resolve(process.env.JWT_PUBLIC_KEY_PATH || "./src/keys/public.key"),
-  "utf8"
-);
+// const MypublicKey = fs.readFileSync(
+//   path.resolve(process.env.JWT_PUBLIC_KEY_PATH || "./src/keys/public.key"),
+//   "utf8"
+// );
+
+const MyprivateKey = process.env.JWT_PRIVATE_KEY.replace(/\\n/g, "\n");
+
+const MypublicKey = process.env.JWT_PUBLIC_KEY.replace(/\\n/g, "\n");
 
 /**
  * Generate short-lived access token
