@@ -19,9 +19,9 @@ const path = require("path");
 //   "utf8"
 // );
 
-const MyprivateKey = process.env.JWT_PRIVATE_KEY.replace(/\\n/g, "\n");
+const MyprivateKey = process.env.JWT_PRIVATE_KEY_PATH.replace(/\\n/g, "\n");
 
-const MypublicKey = process.env.JWT_PUBLIC_KEY.replace(/\\n/g, "\n");
+const MypublicKey = process.env.JWT_PUBLIC_KEY_PATH.replace(/\\n/g, "\n");
 
 /**
  * Generate short-lived access token
