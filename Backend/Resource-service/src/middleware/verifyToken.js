@@ -4,13 +4,13 @@ const path = require("path");
 const { sendError } = require("../utils/responseHandler");
 
 
-const MypublicKey = fs.readFileSync(
-  path.resolve(process.env.JWT_PUBLIC_KEY || "./src/keys/public.key"),
-  "utf8"
-);
+// const MypublicKey = fs.readFileSync(
+//   path.resolve(process.env.JWT_PUBLIC_KEY || "./src/keys/public.key"),
+//   "utf8"
+// );
 
 
-// const MypublicKey = process.env.JWT_PUBLIC_KEY;;
+const MypublicKey = process.env.JWT_PUBLIC_KEY.replace(/\\n/g, "\n");
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
