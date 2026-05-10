@@ -1,12 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { API, decodeToken } from "./api";
 
-/**
- * AuthContext
- * Provides: user, token, permissions, login(), logout() to all components
- * Stores accessToken in localStorage
- * Stores refreshToken in memory (also set as httpOnly cookie by server)
- */
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -15,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading]         = useState(true); // checking stored token
 
-  // ── On app load: restore session from localStorage ──────────────────────────
+  // On app load: restore session from localStorage 
   useEffect(() => {
     const stored = localStorage.getItem("accessToken");
     if (stored) {
@@ -38,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // ── Login ────────────────────────────────────────────────────────────────────
+  // Login
   const login = async (email, password) => {
     const result = await API.login(email, password);
     // result = { accessToken, user: { id, email, roles, permissions } }
@@ -56,9 +50,10 @@ export const AuthProvider = ({ children }) => {
     return result;
   };
 
-  // ── Logout ───────────────────────────────────────────────────────────────────
+  // Logout
   const logout = async () => {
-    try { await API.logout(); } catch { /* ignore */ }
+    try { await API.logout(); } catch { 
+    }
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setToken(null);
@@ -66,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     setPermissions([]);
   };
 
-  // ── Permission check helper ──────────────────────────────────────────────────
+  // Permission check helper
   const can = (permission) => permissions.includes(permission);
 
   return (

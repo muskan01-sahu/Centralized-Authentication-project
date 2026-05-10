@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-// Hash plain password — used during user registration/seeding
+// Hash plain password 
 const hashPassword = async (plain) => {
   const salt = await bcrypt.genSalt(12);
   return bcrypt.hash(plain, salt);

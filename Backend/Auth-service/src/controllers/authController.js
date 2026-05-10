@@ -5,7 +5,7 @@ const {
   sendError,
 } = require("../utils/responseHandler");
 
-// ─── POST /auth/register ─────────────────────────────────────
+// POST /auth/register
 const register = async (req, res) => {
   // validation middleware runs before this controller, so capture its results here
   const errors = validationResult(req);
@@ -52,7 +52,7 @@ const register = async (req, res) => {
   }
 };
 
-// ─── POST /auth/login ────────────────────────────────────────
+// POST /auth/login
 const login = async (req, res) => {
 
   const errors = validationResult(req);
@@ -132,7 +132,7 @@ const login = async (req, res) => {
   }
 };
 
-// ─── POST /auth/refresh ──────────────────────────────────────
+// POST /auth/refresh
 const refresh = async (req, res) => {
   try {
 
@@ -179,7 +179,7 @@ const refresh = async (req, res) => {
   }
 };
 
-// ─── POST /auth/logout ───────────────────────────────────────
+// POST /auth/logout 
 const logout = async (req, res) => {
   try {
 

@@ -1,10 +1,6 @@
 const { verifyToken } = require("../utils/generateToken");
 const { sendError } = require("../utils/responseHandler");
 
-/**
- * PDF: Token must be validated before accessing protected routes
- * Used inside auth-service to protect routes like POST /auth/logout
- */
 const protect = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -16,7 +12,7 @@ const protect = (req, res, next) => {
 
   try {
     const decoded = verifyToken(token);
-    req.user = decoded; // { sub, email, permissions, iat, exp }
+    req.user = decoded; 
     next();
   } catch (err) {
     if (err.name === "TokenExpiredError") {

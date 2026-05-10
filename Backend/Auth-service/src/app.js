@@ -10,10 +10,10 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
 
-// ── Security Headers (PDF: secure secret management) ─────────────────────────
+// Security Headers
 app.use(helmet());
 
-// ── CORS ──────────────────────────────────────────────────────────────────────
+// CORS 
 app.use(
   cors({
     origin:
@@ -24,33 +24,32 @@ app.use(
     "http://localhost:5001",
     "http://localhost:5173",
   ],
-    credentials: true, // allow cookies to be sent
+    credentials: true, 
   })
 );
 
 // ── Body Parsing ──────────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser()); // needed to read refresh token from cookie
+app.use(cookieParser()); 
 
-// ── HTTP Request Logger ───────────────────────────────────────────────────────
+// HTTP Request Logger 
 if (process.env.NODE_ENV !== "test") {
   app.use(morgan("dev"));
 }
 
-// ── Health Check ──────────────────────────────────────────────────────────────
+// Health Check 
 app.get("/health", (req, res) => {
   res.json({ success: true, service: "auth-service", status: "running" });
 });
 
-// ── Auth Routes ───────────────────────────────────────────────────────────────
-// Rate limit only the login endpoint — NOT register or refresh
+//  Auth Routes 
 app.use("/auth", authRoutes);
 
-// ── 404 Handler ───────────────────────────────────────────────────────────────
+// 404 Handler 
 app.use(notFound);
 
-// ── Global Error Handler ──────────────────────────────────────────────────────
+// Global Error Handler 
 app.use(errorHandler);
 
 module.exports = app;

@@ -5,26 +5,8 @@ const { getOrders, createOrder, deleteOrder } = require("../controllers/orderCon
 const { verifyToken } = require("../middleware/verifyToken");
 const { checkPermission } = require("../middleware/checkPermission");
 
-/**
- * PDF Resource Service Endpoints — Orders
- *
- * ┌─────────────────────┬──────────────────┐
- * │ Endpoint            │ Permission       │
- * ├─────────────────────┼──────────────────┤
- * │ GET    /orders      │ orders:read      │
- * │ POST   /orders      │ orders:write     │
- * │ DELETE /orders/:id  │ orders:delete    │
- * └─────────────────────┴──────────────────┘
- *
- * Middleware chain on every route:
- *   verifyToken → checkPermission → controller
- *
- * PDF rules enforced:
- * → No token         → 401 Unauthorized  (verifyToken)
- * → Wrong permission → 403 Forbidden     (checkPermission)
- */
 
-// GET /orders — needs orders:read permission
+// GET /orders 
 router.get(
   "/",
   verifyToken,
@@ -32,7 +14,7 @@ router.get(
   getOrders
 );
 
-// POST /orders — needs orders:write permission
+// POST /orders 
 router.post(
   "/",
   verifyToken,
@@ -40,7 +22,7 @@ router.post(
   createOrder
 );
 
-// DELETE /orders/:id — needs orders:delete permission
+// DELETE /orders/:id — 
 router.delete(
   "/:id",
   verifyToken,

@@ -17,10 +17,10 @@ const loginLimiter = rateLimit({
 
 /**
  * Auth Endpoints:
- *   POST /auth/register → public  (new user signup)
- *   POST /auth/login    → public  (required by PDF)
- *   POST /auth/refresh  → public  (optional but recommended)
- *   POST /auth/logout   → private (optional)
+ *   POST /auth/register 
+ *   POST /auth/login     
+ *   POST /auth/refresh  
+ *   POST /auth/logout   
  */
 
 // POST /auth/register — create new user with default "user" role
@@ -33,6 +33,6 @@ router.post("/login", loginLimiter, validateLogin, login);
 router.post("/refresh", refresh);
 
 // POST /auth/logout
-router.post("/logout", protect, logout);
+router.post("/logout", logout);
 
 module.exports = router;

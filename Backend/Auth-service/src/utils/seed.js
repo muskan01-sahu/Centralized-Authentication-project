@@ -13,7 +13,7 @@ const seed = async () => {
   await Role.deleteMany({});
   await User.deleteMany({});
 
-  // ── 1. PERMISSIONS (PDF: resource:action format) ─────────────────────────
+  // PERMISSIONS
   const permsSeed = await Permission.insertMany([
     { resource: "orders",  action: "read"   },
     { resource: "orders",  action: "write"  },
@@ -32,7 +32,7 @@ const seed = async () => {
 
   console.log(` Created ${permsSeed.length} permissions`);
 
-  // ── 2. ROLES (PDF: admin, manager, user) ────────────────────────────────
+  // ROLES 
   // admin  → all permissions
   // manager → orders:read, orders:write, reports:read
   // user   → orders:read only
@@ -57,7 +57,7 @@ const seed = async () => {
 
   console.log("✅ Created roles: admin, manager, user");
 
-  // ── 3. USERS (Many-to-Many: User <-> Role) ──────────────────────────────
+  // USERS 
   await User.create({
     email: "admin@example.com",
     password: "Admin@123",
@@ -79,7 +79,7 @@ const seed = async () => {
     roles: [userRole._id],
   });
 
-  // Disabled user — PDF: disabled users must not receive tokens
+  // Disabled user 
   await User.create({
     email: "disabled@example.com",
     password: "Disabled@123",

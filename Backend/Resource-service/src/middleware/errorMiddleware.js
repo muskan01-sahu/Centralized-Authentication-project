@@ -7,7 +7,7 @@ const notFound = (req, res, next) => {
   next(err);
 };
 
-// Global error handler — PDF: centralized error handling
+// Global error handler 
 const errorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || "Internal Server Error";

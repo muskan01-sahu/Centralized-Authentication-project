@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 /**
- * PDF Identity & Access Model — Permission
+ * Identity & Access Model — Permission
  * {
  *   id: string
  *   resource: string  // orders, reports, users
@@ -16,7 +16,7 @@ const permissionSchema = new mongoose.Schema(
       required: [true, "Resource is required !!!"],
       trim: true,
       lowercase: true,
-      // PDF examples: orders, reports, users
+      // examples: orders, reports, users
     },
     action: {
       type: String,

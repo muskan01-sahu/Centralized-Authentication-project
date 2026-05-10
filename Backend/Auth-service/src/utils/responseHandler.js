@@ -1,5 +1,4 @@
 // All API responses follow: { success, message, data }
-// PDF: clear error messages, no sensitive data leakage
 
 const sendSuccess = (res, statusCode = 200, message = "Successful", data = null) => {
   const handle = { success: true, message };

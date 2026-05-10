@@ -270,7 +270,7 @@ export default function Orders() {
               </thead>
               <tbody>
                 {orders.map((order) => (
-                  <tr key={order.id}>
+                  <tr key={order._id}>
                     <td><span className="id-badge">#{order.id}</span></td>
                     <td><span className="item-name">{order.item}</span></td>
                     <td>{order.qty}</td>
@@ -282,7 +282,7 @@ export default function Orders() {
                         <button
                           className="delete-btn"
                           onClick={() => handleDelete(order.id)}
-                          disabled={deleting === order.id}
+                          disabled={deleting === order._id}
                         >
                           {deleting === order.id ? "..." : "Delete"}
                         </button>

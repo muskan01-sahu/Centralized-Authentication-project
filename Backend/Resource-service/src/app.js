@@ -10,10 +10,10 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
 
-// ── Security Headers ──────────────────────────────────────────────────────────
+// Security Headers 
 app.use(helmet());
 
-// ── CORS ──────────────────────────────────────────────────────────────────────
+// CORS
 app.use(
   cors({
     origin:
@@ -24,7 +24,7 @@ app.use(
   })
 );
 
-// ── Rate Limiting (PDF Bonus) ─────────────────────────────────────────────────
+// Rate Limiting 
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -33,24 +33,24 @@ app.use(
   })
 );
 
-// ── Body Parsing ──────────────────────────────────────────────────────────────
+// Body Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// ── Logger ────────────────────────────────────────────────────────────────────
+// Logger
 if (process.env.NODE_ENV !== "test") {
   app.use(morgan("dev"));
 }
 
-// ── Health Check ──────────────────────────────────────────────────────────────
+// Health Check
 app.get("/health", (req, res) => {
   res.json({ success: true, service: "resource-service", status: "running" });
 });
 
-// ── Order Routes ──────────────────────────────────────────────────────────────
+// Order Routes 
 app.use("/orders", orderRoutes);
 
-// ── 404 + Error Handlers ─────────────────────────────────────────────────────
+// 404 + Error Handlers 
 app.use(notFound);
 app.use(errorHandler);
 

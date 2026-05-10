@@ -1,4 +1,3 @@
-
 const User = require("../models/user");
 const Role = require("../models/role");
 const Permission = require("../models/permission");
@@ -8,16 +7,7 @@ const {
   verifyToken,
 } = require("../utils/generateToken");
 
-/**
- * extractPermissions
- * Flattens user's populated roles into a flat array of permission strings
- *
- * Input:  roles (with populated permissions)
- * Output: ["orders:read", "orders:write", "orders:delete"]
- *
- * These strings are embedded in the JWT so the Resource Service
- * can check permissions WITHOUT calling the Auth database.
- */
+
 const extractPermissions = (roles) => {
   const permSet = new Set();
   roles.forEach((role) => {
@@ -28,9 +18,9 @@ const extractPermissions = (roles) => {
   return [...permSet];
 };
 
-// ─── LOGIN ────────────────────────────────────────────────────────────────────
+// LOGIN
 const loginUser = async (email, password) => {
-  // 1. Find user — select hidden fields: password + refreshToken
+  // Find user 
   const user = await User.findOne({ email })
     .select("+password +refreshToken")
     .populate({
@@ -38,21 +28,21 @@ const loginUser = async (email, password) => {
       populate: { path: "permissions" }, // load permissions inside each role
     });
 
-  // 2. User not found — do NOT say "user not found" (security: no info leakage)
+  // User not found 
   if (!user) {
     const err = new Error("Invalid email or password");
     err.statusCode = 401;
     throw err;
   }
 
-  // 3. PDF rule: disabled users must NOT receive tokens
+  // disabled users must NOT receive tokens
   if (!user.isActive) {
     const err = new Error("Account is disabled. Contact your administrator.");
     err.statusCode = 403;
     throw err;
   }
 
-  // 4. Compare entered password vs bcrypt hash in DB
+  // Compare entered password vs bcrypt hash in DB
   const isMatch = await user.comparePassword(password);
   if (!isMatch) {
     const err = new Error("Invalid email or password");
@@ -60,14 +50,14 @@ const loginUser = async (email, password) => {
     throw err;
   }
 
-  // 5. Build flat permission list from populated roles
+  // Build flat permission list from populated roles
   const permissions = extractPermissions(user.roles);
 
-  // 6. Sign tokens — permissions embedded in access token
+  // Sign tokens 
   const accessToken = generateAccessToken(user, permissions);
   const refreshToken = generateRefreshToken(user);
 
-  // 7. Save refresh token to DB so we can revoke it on logout
+  // Save refresh token 
   user.refreshToken = refreshToken;
   await user.save({ validateBeforeSave: false });
 
@@ -84,9 +74,9 @@ const loginUser = async (email, password) => {
   };
 };
 
-// ─── REFRESH TOKEN ────────────────────────────────────────────────────────────
+// REFRESH TOKEN
 const refreshAccessToken = async (token) => {
-  // 1. Verify token signature and expiry
+  // Verify token signature and expiry
   let decoded;
   try {
     decoded = verifyToken(token);
@@ -96,14 +86,14 @@ const refreshAccessToken = async (token) => {
     throw err;
   }
 
-  // 2. Must be a refresh type token, not an access token
+  // Must be a refresh type token, not an access token
   if (decoded.type !== "refresh") {
     const err = new Error("Token is not a refresh token");
     err.statusCode = 401;
     throw err;
   }
 
-  // 3. Find user and validate stored token (prevents reuse after logout)
+  // Find user and validate stored token (prevents reuse after logout)
   const user = await User.findById(decoded.sub)
     .select("+refreshToken")
     .populate({ path: "roles", populate: { path: "permissions" } });
@@ -120,25 +110,25 @@ const refreshAccessToken = async (token) => {
     throw err;
   }
 
-  // 4. Issue new tokens (refresh token rotation)
+  // Issue new tokens (refresh token rotation)
   const permissions = extractPermissions(user.roles);
   const newAccessToken = generateAccessToken(user, permissions);
   const newRefreshToken = generateRefreshToken(user);
 
-  // 5. Update stored refresh token
+  // Update stored refresh token
   user.refreshToken = newRefreshToken;
   await user.save({ validateBeforeSave: false });
 
   return { accessToken: newAccessToken, refreshToken: newRefreshToken };
 };
 
-// ─── LOGOUT ───────────────────────────────────────────────────────────────────
+// LOGOUT
 const logoutUser = async (userId) => {
   // Clear refresh token in DB — this revokes it (PDF bonus: token revocation)
   await User.findByIdAndUpdate(userId, { refreshToken: null });
 };
 
-// ─── REGISTER ─────────────────────────────────────────────────────────────────
+// REGISTER
 const registerUser = async (email, password, roleName) => {
 
   const existingUser = await User.findOne({

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ── CSS Variables ─────────────────────────────────────────────────── */
+/* CSS Variables */
 :root {
   --bg:          #080b14;
   --surface:     #0e1420;
@@ -19,7 +19,7 @@
   --text-faint:  #475569;
 }
 
-/* ── Reset ─────────────────────────────────────────────────────────── */
+/* Reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

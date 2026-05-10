@@ -7,7 +7,7 @@ const notFound = (req, res, next) => {
   next(err);
 };
 
-// Global error handler — PDF: centralized error handling + proper HTTP codes
+// Global error handler — centralized error handling + proper HTTP codes
 const errorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || err.status || 500;
   let message = err.message || "Internal Server Error";
@@ -25,7 +25,7 @@ const errorHandler = (err, req, res, next) => {
     message = Object.values(err.errors).map((e) => e.message).join(", ");
   }
 
-  // JWT errors — PDF: token expiration handling
+  // JWT errors — token expiration handling
   if (err.name === "JsonWebTokenError") {
     statusCode = 401;
     message = "Invalid token";
@@ -35,7 +35,7 @@ const errorHandler = (err, req, res, next) => {
     message = "Token has expired";
   }
 
-  // PDF: no sensitive data leakage — never expose stack in production
+  // no sensitive data leakage — never expose stack in production
   if (process.env.NODE_ENV === "development") {
   console.error("FULL ERROR =>", err);
 }

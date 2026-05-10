@@ -1,16 +1,10 @@
-  /**
-   * api.js
-   * Auth Service  → http://localhost:5000
-   * Resource Service → http://localhost:5001
-   */
+const AUTH_URL = "http://localhost:5000";
+const RES_URL = "http://localhost:5001";
 
-  const AUTH_URL = "http://localhost:5000";
-  const RES_URL = "http://localhost:5001";
-
-  // ─── Get Stored Token ───────────────────────────────────────────────────────
+// Get Stored Token
   const getToken = () => localStorage.getItem("accessToken");
 
-  // ─── Common Request Helper ──────────────────────────────────────────────────
+// Common Request Helper 
   const request = async (url, options = {}) => {
     try {
       const token = getToken();
@@ -53,7 +47,7 @@
     }
   };
 
-  // ─── AUTH API ───────────────────────────────────────────────────────────────
+  // AUTH API
   export const API = {
     // Login
     login: async (email, password) => {
@@ -103,7 +97,7 @@
       return data.data;
     },
 
-    // ─── Orders API ───────────────────────────────────────────────────────────
+    // Orders API
 
     // Get all orders
     getOrders: async () => {
@@ -132,7 +126,7 @@
     },
   };
 
-  // ─── JWT Decode Helper ──────────────────────────────────────────────────────
+  // JWT Decode Helper
   export const decodeToken = (token) => {
     try {
       return JSON.parse(atob(token.split(".")[1]));
@@ -141,7 +135,7 @@
     }
   };
 
-  // ─── Permission Helper ──────────────────────────────────────────────────────
+  // Permission Helper
   export const hasPermission = (permissions, required) => {
     return permissions?.includes(required) ?? false;
   };

@@ -7,9 +7,9 @@ const User = require("../models/user");
 const seed = async () => {
   try {
     await connectDB();
-    console.log("\n🌱 Seeding database...\n");
+    console.log("\n Seeding database...\n");
 
-    // ── 1. PERMISSIONS ───────────────────────────────────────────────────────
+    // PERMISSIONS 
     console.log("Creating permissions...");
     const permsData = [
       { resource: "orders", action: "read" },
@@ -32,7 +32,7 @@ const seed = async () => {
       permMap[`${perm.resource}:${perm.action}`] = perm._id;
     });
 
-    // ── 2. ROLES ──────────────────────────────────────────────────────────
+    // ROLES 
     console.log("Creating roles...");
     
     // Clear existing roles
