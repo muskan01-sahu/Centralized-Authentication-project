@@ -1,7 +1,8 @@
 // const AUTH_URL = "http://localhost:5000";
 const AUTH_URL = "https://centralized-authentication-project-3.onrender.com";
 
-const RES_URL = "http://localhost:5001";
+// const RES_URL = "http://localhost:5001";
+const RES_URL = "https://centralized-authentication-project.onrender.com";
 
 // Get Stored Token
   const getToken = () => localStorage.getItem("accessToken");
