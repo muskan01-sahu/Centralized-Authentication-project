@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./Login";
-import Register from "./Register";
-import Orders from "./Orders";
-import ProtectedRoute from "./ProtectedRoute";
-import { AuthProvider } from "./AuthContext";
+import Login from "./Login.jsx";
+import Register from "./Register.jsx";
+import Orders from "./Orders.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
+import { AuthProvider } from "./AuthContext.jsx";
 
 function App() {
   return (

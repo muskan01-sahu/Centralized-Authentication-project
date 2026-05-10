@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "./AuthContext";
-import { API } from "./api";
-import Navbar from "./Navbar";
+import { useAuth } from "./AuthContext.jsx";
+import { API } from "./api.js";
+import Navbar from "./Navbar.jsx";
 import "./styles.css";
 
 export default function Orders() {
