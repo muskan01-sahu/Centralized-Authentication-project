@@ -73,7 +73,7 @@ export default function Orders() {
     setDeleting(id);
     try {
       await API.deleteOrder(id);
-      setOrders((prev) => prev.filter((o) => o.id !== id));
+      setOrders((prev) => prev.filter((o) => o._id !== id));
       showToast("Order deleted");
     } catch (err) {
       showToast(err.message, "error");
@@ -269,9 +269,9 @@ export default function Orders() {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order) => (
+                {orders.map((order,index) => (
                   <tr key={order._id}>
-                    <td><span className="id-badge">#{order.id}</span></td>
+                    <td><span className="id-badge">#{index + 1}</span></td>
                     <td><span className="item-name">{order.item}</span></td>
                     <td>{order.qty}</td>
                     <td><span className="price-val">₹{Number(order.price).toLocaleString()}</span></td>
@@ -281,10 +281,10 @@ export default function Orders() {
                       {canDelete ? (
                         <button
                           className="delete-btn"
-                          onClick={() => handleDelete(order.id)}
+                          onClick={() => handleDelete(order._id)}
                           disabled={deleting === order._id}
                         >
-                          {deleting === order.id ? "..." : "Delete"}
+                          {deleting === order._id ? "..." : "Delete"}
                         </button>
                       ) : (
                         <span className="locked-action" title="Requires orders:delete">
