@@ -16,13 +16,13 @@ app.use(helmet());
 // CORS 
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-? ["https://centralized-auth-kcmt0ulj8-muskans-projects-ec418416.vercel.app"]        :  [
+    origin:true,
+//       process.env.NODE_ENV === "production"
+// ? ["https://centralized-auth-kcmt0ulj8-muskans-projects-ec418416.vercel.app"]        :  [
     
-    "http://localhost:5001",
-    "http://localhost:5173",
-  ],
+//     "http://localhost:5001",
+//     "http://localhost:5173",
+//   ],
     credentials: true, 
   })
 );
