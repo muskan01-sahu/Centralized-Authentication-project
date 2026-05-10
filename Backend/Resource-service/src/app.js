@@ -18,7 +18,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://yourdomain.com"]
+? ["https://centralized-auth-kcmt0ulj8-muskans-projects-ec418416.vercel.app"]
         : [ "http://localhost:5000", "http://localhost:5001","http://localhost:5173"],
     credentials: true,
   })
